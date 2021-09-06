@@ -6,7 +6,9 @@ const authController = require('../controllers/authController');
 
 routes.get('/',authController.login);
 routes.get('/register',authController.register);
-routes.post('/auth/register/save-user',authController.saveData);
+routes.post('/save-user',authController.saveData);
+
+
 
 console.log("auth routing is running users");
 module.exports = routes;

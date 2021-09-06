@@ -18,7 +18,31 @@ module.exports.saveData = function(req,res){
             console.log('somthing went wrong in create user');
             return;
         }
-        return res.redirect('auth');
+        return res.redirect('/home');
     })
+}
+
+
+module.exports.loginUser = function(req,res){
+    console.log(req.body.email);
+      usermodel.findOne({email : req.body.email},function(err,userdata){
+            if(err){
+                console.log('somthing went wrong in login!')
+            }
+            else{
+                if(userdata){
+                    if(userdata.password == req.body.password){
+                        let userData = userdata;
+                        res.cookie('user',userData);
+                        return res.redirect('/home')
+                    }else{
+                        return res.redirect('back');
+                    }
+                }else{
+                    console.log("data not fond");
+                    return res.redirect('back');
+                }
+            }
+      });
 }
 
